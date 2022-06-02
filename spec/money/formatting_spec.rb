@@ -81,7 +81,7 @@ describe Money, "formatting" do
 
     context "with overridden i18n settings" do
       it "should respect explicit overriding of thousands_separator/delimiter when decimal_mark/separator collide and there’s no decimal component for currencies that have no subunit" do
-        expect(Money.new(300_000, 'ISK').format(thousands_separator: ".", decimal_mark: ',')).to eq "300.000 kr."
+        expect(Money.new(300_000, 'ISK').format(thousands_separator: ".", decimal_mark: ',', format: '%n %u')).to eq "300.000 kr."
       end
 
       it "should respect explicit overriding of thousands_separator/delimiter when decimal_mark/separator collide and there’s no decimal component for currencies with subunits that drop_trailing_zeros" do
@@ -148,7 +148,7 @@ describe Money, "formatting" do
 
     context "with overridden r18n settings" do
       it "should respect explicit overriding of thousands_separator/delimiter when decimal_mark/separator collide and there’s no decimal component for currencies that have no subunit" do
-        expect(Money.new(300_000, 'ISK').format(thousands_separator: ".", decimal_mark: ',')).to eq "300.000 kr."
+        expect(Money.new(300_000, 'ISK').format(thousands_separator: ".", decimal_mark: ',', format: '%n %u')).to eq "300.000 kr."
       end
 
       it "should respect explicit overriding of thousands_separator/delimiter when decimal_mark/separator collide and there’s no decimal component for currencies with subunits that drop_trailing_zeros" do
