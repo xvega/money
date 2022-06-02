@@ -11,7 +11,6 @@ class Money
       @rules = default_formatting_rules.merge(@rules) unless @rules[:ignore_defaults]
       @rules = localize_formatting_rules(@rules)
       @rules = translate_formatting_rules(@rules) if @rules[:translate]
-      @rules[:format] ||= determine_format_from_formatting_rules(@rules)
       @rules[:delimiter_pattern] ||= delimiter_pattern_rule(@rules)
 
       warn_about_deprecated_rules(@rules)
@@ -79,17 +78,6 @@ class Money
       rules
     end
 
-    def determine_format_from_formatting_rules(rules)
-      return currency.format if currency.format && !rules.has_key?(:symbol_position)
-
-      symbol_position = symbol_position_from(rules)
-
-      if symbol_position == :before
-        rules.fetch(:symbol_before_without_space, true) ? '%u%n' : '%u %n'
-      else
-        rules[:symbol_after_without_space] ? '%n%u' : '%n %u'
-      end
-    end
 
     def delimiter_pattern_rule(rules)
       if rules[:south_asian_number_formatting]
